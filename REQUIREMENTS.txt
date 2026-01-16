@@ -1,0 +1,10 @@
+opencv-python
+customtkinter
+pillow
+matplotlib
+numpy<2.0.0
+torch
+torchvision
+tensorflow
+mss
+pandas

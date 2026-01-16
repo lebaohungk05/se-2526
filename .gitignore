@@ -1,0 +1,30 @@
+*.pyc
+src/visualizations.py
+*.pkl
+src/utils/get_gender_faces.py
+src/train_emotion_classifier_transfer_learning.py
+*.log
+
+# Build and Distribution
+dist/
+build/
+*.spec
+*.exe
+
+# Datasets
+datasets/
+student_engagement.db
+
+# Models and Heavy Checkpoints
+trained_models/
+*.pth
+*.hdf5
+*.h5
+*.onnx
+*.tflite
+*.pb
+
+# Reports and temporary images
+reports/
+report_images/
+images/
