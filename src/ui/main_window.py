@@ -14,8 +14,18 @@ from PIL import Image, ImageTk
 import csv
 from datetime import datetime
 
-# Fix path
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+# --- IMPORT SERVICES ---
+# (Assumes app is run from project root via 'python main.py')
+try:
+    from src.data.repository import EngagementDB
+    # Note: 'main_app' logic is now merged/replaced or handled differently. 
+    # But wait, lines 343 "from main_app import TeacherMonitorApp" refers to the OLD Logic file.
+    # We must REWIRE this to use 'face_service' and 'capture_service' DIRECTLY 
+    # or create a new Controller class here to replace TeacherMonitorApp.
+except ImportError:
+    # Fallback for direct execution (testing only)
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
+    from src.data.repository import EngagementDB
 
 # --- OCEAN BREEZE PALETTE (Refined) ---
 COLOR_BG = "#F1F5F9"       # Slate 100 (Main Background)
@@ -269,8 +279,9 @@ class ModernTeacherApp(ctk.CTk):
     # --- LOGIC ---
     def lazy_load_core(self):
         try:
-            from main_app import TeacherMonitorApp
-            self.app_core = TeacherMonitorApp()
+            # CHANGED: Import from new service layer
+            from src.services.app_core import AppCore
+            self.app_core = AppCore()
             self.lbl_status_text.configure(text="AI Ready", text_color=COLOR_SUCCESS)
             self.lbl_status_dot.configure(text_color=COLOR_SUCCESS)
             self.btn_start.configure(state="normal")
@@ -279,6 +290,7 @@ class ModernTeacherApp(ctk.CTk):
             self.lbl_status_text.configure(text="AI Error", text_color=COLOR_DANGER)
             self.lbl_status_dot.configure(text_color=COLOR_DANGER)
             self.log_activity(f"Error loading AI: {e}")
+            print(f"Detailed Error: {e}") # Print to console for debug
 
     def show_frame(self, name):
         for k, btn in self.nav_btns.items():
