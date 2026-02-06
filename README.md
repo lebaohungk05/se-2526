@@ -68,10 +68,10 @@ graph TD
     end
 
     subgraph "AI & Data Layer"
-        FaceDet[Haar Cascade]
-        EmoNet[Emotion Model (Mini_XCEPTION)]
-        GenNet[Gender Model (Mini_XCEPTION)]
-        DB[(SQLite Logs)]
+        FaceDet["Haar Cascade"]
+        EmoNet["Emotion Model (Mini_XCEPTION)"]
+        GenNet["Gender Model (Mini_XCEPTION)"]
+        DB[("SQLite Logs")]
     end
 
     UI --> AppCore
